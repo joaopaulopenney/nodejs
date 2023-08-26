@@ -1,44 +1,60 @@
 const mongoose = require("mongoose");
 
-mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/aprendendo", {
-  useNewUrlParser: true,
-}).then(() => {
-  console.log('conectado');
-}).catch((err) => {
-  console.log('deu erro' + err);
-});
+// Configurando o mongoose
+  mongoose.Promise = global.Promise;
+  mongoose.connect("mongodb://127.0.0.1/aprendendo", {
+    useNewUrlParser: true,
+  }).then(() => {
+    console.log('MongoDB Conectado...');
+  }).catch((err) => {
+    console.log('Houve um erro ao se conectar ao MongoDB: ' + err);
+  });
+// Model - Usuários
+// Definindo o Model
+  const UsuarioSchema = mongoose.Schema({
+    
+    nome: {
+      type: String,
+      require: true
+    },
 
-const Schema = mongoose.Schema; // Add this line to define the Schema object
+    sobrenome: {
+      type: String,
+      require: true
+    },
 
-const UsuarioSchema = new Schema({
-  nome: {
-    type: String,
-    require: true
-  },
-  sobrenome: {
-    type: String,
-    require: true
-  },
-  email: {
-    type: String,
-    require: true
-  },
-  idade: {
-    type: Number,
-    require: true
-  }
-});
+    email: {
+      type: String,
+      require: true
+    },
 
-const Usuario = mongoose.model('usuarios', UsuarioSchema); // Create a model using the schema
+    idade: {
+      type: Number,
+      require: true
+    },
 
-new Usuario({
-  nome: "Vicotr",
-  sobrenome: "Lima",
-  email: "sgdfgd@fgdfgss.com",
-  idade: 45
-}).save().then(() => {
-  console.log("usuario criado com sucesso");
-}).catch((err) => {
-  console.log("Houve erro ao criar o usuario" + err);
-});
+    pais: {
+      type: String
+    }
+
+  });
+// Collection
+  mongoose.model('usuarios', UsuarioSchema)
+
+  const Victor = mongoose.model('usuarios')
+
+  new Victor({
+    nome: "Victor",
+
+    sobrenome: "Lima",
+
+    idade: 25,
+
+    email: "victor@email.com",
+
+    pais: "Brasil"
+  }).save().then(() => {
+    console.log("Usuário cadastrado com sucesso!")
+  }).catch((err) => {
+    console.log("Houve um erro ao registrar o usuário: " + err)
+  })
