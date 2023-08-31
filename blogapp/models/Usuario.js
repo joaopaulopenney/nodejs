@@ -12,6 +12,11 @@ const Usuario = new Schema({
         require: true
     },
 
+    eAdmin: {
+        type: Number,
+        default: 0
+    },
+
     senha: {
         type: String,
         require: true
